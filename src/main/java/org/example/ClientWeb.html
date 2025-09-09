@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title of the document</title>
+    </head>
+<body>
+    <h1>Form SET</h1>
+    <form action="/client">
+    <label for="key">Key:</label><br>
+    <input type="text" id="key" name="key" value="Number"><br><br>
+    <label for="value">Value:</label><br>
+        <input type="text" id="value" name="value" value="1234"><br><br>
+    <input type="button" value="Create" onclick="postGetMsg()">
+    </form>
+<div id="postrespmsg"></div>
+<script>
+    function postGetMsg() {
+        let keyVar = document.getElementById("key").value;
+        let valueVar = document.getElementById("value").value;
+        const xhttp = new XMLHttpRequest();
+        xhttp.onload = function () {
+            document.getElementById("postrespmsg").innerHTML =
+                this.responseText;
+            }
+        xhttp.open("GET", "/setkv?key=" + keyVar, "&value=" + valueVar);
+        xhttp.send();
+    }
+</script>
+<h1>Form GET</h1>
+<form action="/client">
+    <label for="keyquery">Key:</label><br>
+    <input type="text" id="keyquery" name="keyquery" value="Numero"><br><br>
+    <input type="button" value="Consultar" onclick="loadGetMsg()">
+    </form>
+<div id="getrespmsg"></div>
+<script>
+    function loadGetMsg() {
+         let keyVar = document.getElementById("keyquery").value;
+         const xhttp = new XMLHttpRequest();
+         xhttp.onload = function () {
+             document.getElementById("getrespmsg").innerHTML =
+             this.responseText;
+         }
+         xhttp.open("GET", "/getkv?key=" + keyVar);
+         xhttp.send();
+    }
+</script>
+</body>
+</html>
